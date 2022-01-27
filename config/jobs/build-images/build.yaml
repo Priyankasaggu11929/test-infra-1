@@ -5,6 +5,9 @@ postsubmits:
     run_if_changed: "images/test/.*"
     branches:
     - ^main$
+    annotations:
+      testgrid-dashboards: build-images
+      testgrid-tab-name: Building test images
     spec:
       containers:
       - name: docker-build
@@ -28,7 +31,7 @@ postsubmits:
         emptyDir: {}
 
 periodics:
-- name: build-test-image
+- name: periodic-build-test-image
   decorate: true
   interval: 24h
   extra_refs:
