@@ -38,6 +38,9 @@ periodics:
   - org: vagator
     repo: test-infra
     base_ref: main
+  annotations:
+    testgrid-dashboards: build-images
+    testgrid-tab-name: periodics
   spec:
     containers:
     - name: docker-build
