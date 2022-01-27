@@ -2,6 +2,9 @@ postsubmits:
   vagator/test-prow:
   - name: test-postsubmit
     decorate: true
+    annotations:
+      testgrid-dashboards: test-prow
+      testgrid-tab-name: Testing Prow
     spec:
       containers:
       - image: alpine
