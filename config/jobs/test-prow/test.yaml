@@ -12,7 +12,7 @@ postsubmits:
 presubmits:
   vagator/test-prow:
   - name: test-presubmit
-    cluster: test-jobs
+    cluster: test-jobs-new
     decorate: true
     always_run: true
     spec:
