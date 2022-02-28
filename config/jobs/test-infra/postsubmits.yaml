@@ -27,7 +27,7 @@ postsubmits:
   vagator/test-infra:
   - name: post-test-infra-push-base
     cluster: test-jobs
-    run_if_changed: '^images/base/'
+    run_if_changed: '^images/base/*'
     annotations:
       testgrid-dashboards: build-images
       testgrid-tab-name: base
@@ -37,8 +37,8 @@ postsubmits:
       containers:
       - image: debian:buster
         command:
-        - scripts/ci-docker-build-image.sh
+        - ./scripts/ci-docker-build-image.sh
         args:
-        - images/base
+        - ./images/base
         - public.ecr.aws/t0q8k6g2/vagator/base
 
