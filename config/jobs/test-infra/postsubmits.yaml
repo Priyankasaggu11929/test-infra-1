@@ -28,6 +28,9 @@ postsubmits:
   - name: push-base
     cluster: test-jobs
     decorate: true
+    max_concurrency: 10
+    branches:
+    - ^main$
     run_if_changed: '^images/base/*'
     annotations:
       testgrid-dashboards: build-images
