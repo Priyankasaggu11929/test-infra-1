@@ -10,7 +10,7 @@ main() {
   registry_path="${2}"
 
   # Start Docker
-  dockerd-entrypoint.sh &
+  /usr/local/bin/dockerd-entrypoint.sh &
 
   # Docker takes a few seconds to initialize
   while (! docker stats --no-stream > /dev/null 2>&1 ); do
