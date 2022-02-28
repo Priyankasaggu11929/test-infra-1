@@ -6,6 +6,9 @@ main() {
   local dockerfile_path
   dockerfile_path="${1}"
 
+  local registry_path
+  registry_path="${2}"
+
   # Start Docker
   dockerd-entrypoint.sh &
 
@@ -14,11 +17,17 @@ main() {
     sleep 1
   done
 
+  # Login into ECR
+  cat "${REGISTRY_PASSOWRD}" | docker login --username "${REGISTRY_USERNAME}" --password-stdin
+
   # Build docker image...
   cd "${dockerfile_path}"
-  docker build .
+  docker build -t "${registry_path}" .
   local docker_build_exitcode
   docker_build_exitcode="${?}"
+
+  docker tag "${registry_path}":latest "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h))
+  docker push "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h))
 
   # Stop Docker background job
   kill %1
