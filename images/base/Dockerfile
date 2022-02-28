@@ -31,9 +31,4 @@ RUN echo 'DOCKER_OPTS="${DOCKER_OPTS} --data-root=/docker-graph"' | \
 # We will make a fallback one now just in case
 RUN mkdir /docker-graph
 
-COPY ["dockerd-entrypoint.sh", "/usr/local/bin/"]
-
-ENV PATH=/usr/local/bin:${PATH}
-
-ENTRYPOINT ["/usr/local/bin/dockerd-entrypoint.sh"]
 
