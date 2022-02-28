@@ -33,5 +33,7 @@ RUN mkdir /docker-graph
 
 COPY ["dockerd-entrypoint.sh", "/usr/local/bin/"]
 
+ENV PATH=/usr/local/bin:${PATH}
+
 ENTRYPOINT ["/usr/local/bin/dockerd-entrypoint.sh"]
 
