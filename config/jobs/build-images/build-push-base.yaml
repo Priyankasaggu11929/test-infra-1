@@ -26,7 +26,7 @@ presets:
 postsubmits:
   vagator/test-infra:
   - name: post-test-infra-push-base
-    cluster: default
+    cluster: test-jobs
     run_if_changed: '^images/base/'
     annotations:
       testgrid-dashboards: build-images
