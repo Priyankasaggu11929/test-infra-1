@@ -1,0 +1,44 @@
+presubmit:
+- labels:
+    preset-registry-credentials: "true"
+  env:
+  - name: REGISTRY_USERNAME
+    value: /etc/registry-username
+  - name: REGISTRY_PASSWORD
+    value: /etc/registry-password
+  volumes:
+  - name: registry-username
+    secret:
+      defaultMode: 0400
+      secretName: registry-username
+  - name: registry-password
+    secret:
+      defaultMode: 0400
+      secretName: registry-password
+  volumeMounts:
+  - name: registry-username
+    mountPath: /etc/registry-username
+    readOnly: true
+  - name: registry-password
+    mountPath: /etc/registry-password
+    readOnly: true
+
+postsubmits:
+  vagator/test-infra:
+  - name: post-test-infra-push-base
+    cluster: default
+    run_if_changed: '^images/base/'
+    annotations:
+      testgrid-dashboards: build-images
+      testgrid-tab-name: base
+    labels:
+      preset-registry-credentials: "true"
+    spec:
+      containers:
+      - image: debian:buster
+        command:
+        - scripts/ci-docker-build-image.sh
+        args:
+        - images/base
+        - public.ecr.aws/t0q8k6g2/vagator/base
+
