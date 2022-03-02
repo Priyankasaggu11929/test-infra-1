@@ -121,3 +121,47 @@ github_reporter:
   - presubmit
   - postsubmit
 
+presets:
+# docker-in-docker preset
+- labels:
+    preset-dind-enabled: "true"
+  env:
+  - name: DOCKER_IN_DOCKER_ENABLED
+    value: "true"
+  volumes:
+  - name: docker-graph
+    emptyDir: {}
+  - name: docker-root
+    emptyDir: {}
+  volumeMounts:
+  - name: docker-graph
+    mountPath: /docker-graph
+  - name: docker-root
+    mountPath: /var/lib/docker
+# AWS ECR registry creds
+- labels:
+    preset-registry-credentials: "true"
+  env:
+  - name: REGISTRY_ENABLED
+    value: "true"
+  - name: REGISTRY_USERNAME
+    value: /etc/registry-username
+  - name: REGISTRY_PASSWORD
+    value: /etc/registry-password
+  volumes:
+  - name: registry-username
+    secret:
+      defaultMode: 0400
+      secretName: registry-username
+  - name: registry-password
+    secret:
+      defaultMode: 0400
+      secretName: registry-password
+  volumeMounts:
+  - name: registry-username
+    mountPath: /etc/registry-username
+    readOnly: true
+  - name: registry-password
+    mountPath: /etc/registry-password
+    readOnly: true
+
