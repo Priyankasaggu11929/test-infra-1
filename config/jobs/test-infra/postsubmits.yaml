@@ -1,48 +1,23 @@
-presets:
-- labels:
-    preset-registry-credentials: "true"
-  env:
-  - name: REGISTRY_USERNAME
-    value: /etc/registry-username
-  - name: REGISTRY_PASSWORD
-    value: /etc/registry-password
-  volumes:
-  - name: registry-username
-    secret:
-      defaultMode: 0400
-      secretName: registry-username
-  - name: registry-password
-    secret:
-      defaultMode: 0400
-      secretName: registry-password
-  volumeMounts:
-  - name: registry-username
-    mountPath: /etc/registry-username
-    readOnly: true
-  - name: registry-password
-    mountPath: /etc/registry-password
-    readOnly: true
-
 postsubmits:
   vagator/test-infra:
-  - name: push-base
+  - name: push-image-builder
     cluster: test-jobs
     decorate: true
-    max_concurrency: 10
+    max_concurrency: 1
     branches:
     - ^main$
-    run_if_changed: '^images/base/*'
+    run_if_changed: '^images/image-build*'
     annotations:
       testgrid-dashboards: build-images
-      testgrid-tab-name: base
+      testgrid-tab-name: image-builder
     labels:
       preset-registry-credentials: "true"
     spec:
       containers:
-      - image: debian:buster
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v1
         command:
-        - scripts/ci-docker-build-image.sh
+        - images/image-builder/run.sh
         args:
-        - images/base
-        - public.ecr.aws/t0q8k6g2/vagator/base
+        - images/image-builder
+        - public.ecr.aws/t0q8k6g2/vagator/image-builder
 
