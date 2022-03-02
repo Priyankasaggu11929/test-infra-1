@@ -29,7 +29,7 @@ RUN echo 'DOCKER_OPTS="${DOCKER_OPTS} --data-root=/docker-graph"' | \
     tee --append /etc/default/docker
 RUN mkdir /docker-graph
 
-COPY ["entrypoint.sh", "run.sh", "/usr/local/bin"]
+COPY ["entrypoint.sh", "run.sh", "/usr/local/bin/"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
