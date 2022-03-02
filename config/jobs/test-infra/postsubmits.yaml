@@ -12,6 +12,7 @@ postsubmits:
       testgrid-tab-name: image-builder
     labels:
       preset-registry-credentials: "true"
+      preset-dind-enabled: "true"
     spec:
       containers:
       - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v1
@@ -20,4 +21,6 @@ postsubmits:
         args:
         - images/image-builder
         - public.ecr.aws/t0q8k6g2/vagator/image-builder
+        securityContext:
+          privileged: true
 
