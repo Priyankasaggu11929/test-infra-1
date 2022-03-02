@@ -44,10 +44,10 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   echo "Registry is enabled, building and pushing image to ${registry_path}"
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
-  echo "${REGISTRY_USERNAME}"
+  cat "${REGISTRY_USERNAME}"
   # Login into registry
-  export REGISTRY_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
-  docker login --username "${REGISTRY_USERNAME}" --password "${REGISTRY_PASSWORD}" public.ecr.aws
+  # export REGISTRY_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
+  docker login --username $(cat ${REGISTRY_USERNAME}) --password $( cat ${REGISTRY_PASSWORD}) public.ecr.aws
   # Build image
   cd "${dockerfile_path}"
   docker build -t "${registry_path}" .
