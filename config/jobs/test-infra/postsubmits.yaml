@@ -16,7 +16,7 @@ postsubmits:
       preset-aws-credentials: "true"
     spec:
       containers:
-      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v1.0.1
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v1.0.2
         command:
         - images/image-builder/run.sh
         args:
