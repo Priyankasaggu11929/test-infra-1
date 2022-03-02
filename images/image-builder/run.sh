@@ -45,7 +45,7 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
   # Login into registry
-  export REGISTRY_PASSWORD=$(aws ecr-public get-login-password --us-east-1)
+  export REGISTRY_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
   docker login --username "${REGISTRY_USERNAME}" --password "${REGISTRY_PASSWORD}" public.ecr.aws
   # Build image
   cd "${dockerfile_path}"
