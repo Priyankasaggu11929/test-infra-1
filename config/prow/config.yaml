@@ -145,9 +145,9 @@ presets:
   - name: REGISTRY_ENABLED
     value: "true"
   - name: REGISTRY_USERNAME
-    value: /etc/registry-username
+    value: /etc/registry-username/registry-username
   - name: REGISTRY_PASSWORD
-    value: /etc/registry-password
+    value: /etc/registry-password/registry-password
   volumes:
   - name: registry-username
     secret:
