@@ -13,10 +13,9 @@ postsubmits:
     labels:
       preset-registry-credentials: "true"
       preset-dind-enabled: "true"
-      preset-aws-credentials: "true"
     spec:
       containers:
-      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v1.0.5
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220203-4099263
         command:
         - images/image-builder/run.sh
         args:
