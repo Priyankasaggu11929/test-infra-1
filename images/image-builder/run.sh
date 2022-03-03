@@ -50,7 +50,7 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
   # Login into registry
-  docker login --username $(cat ${REGISTRY_USERNAME}) --password "${REGISTRY_PASSWORD}" public.ecr.aws || { error "Failed to login to ECR"; exit 1; }
+  docker login --username $(cat ${REGISTRY_USERNAME}) --password $(cat ${REGISTRY_PASSWORD}) public.ecr.aws || { error "Failed to login to ECR"; exit 1; }
   # Build image
   cd "${dockerfile_path}"
   docker build -t "${registry_path}" . || { error "Failed to build image in ${registry_path}"; exit 1; }
