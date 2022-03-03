@@ -35,7 +35,7 @@ if [[ "${DOCKER_IN_DOCKER_ENABLED}" == "true" ]]; then
             echo "Waiting for docker to be ready, sleeping for ${WAIT_N} seconds."
             sleep ${WAIT_N}
         else
-            error "Reached maximum attempts, not waiting any longer..." 
+            error "Reached maximum attempts, not waiting any longer..."
             exit 1
         fi
     done
@@ -50,13 +50,13 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
   # Login into registry
-  cat "${REGISTRY_PASSWORD}" | docker login --username $(cat ${REGISTRY_USERNAME}) --password-stdin public.ecr.aws || { error "Failed to login to ECR"; exit 1 }
+  cat "${REGISTRY_PASSWORD}" | docker login --username $(cat ${REGISTRY_USERNAME}) --password-stdin public.ecr.aws || { error "Failed to login to ECR"; exit 1; }
   # Build image
   cd "${dockerfile_path}"
-  docker build -t "${registry_path}" . || { error "Failed to build image in ${registry_path}"; exit 1 }
+  docker build -t "${registry_path}" . || { error "Failed to build image in ${registry_path}"; exit 1; }
   # Push image to registry
-  docker tag "${registry_path}":latest "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to tag ${registry_path}:latest"; exit 1 }
-  docker push "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to push ${registry_path}:v$(date +%Y%d%m-$(git log -1 --pretty=%h))"; exit 1 }
+  docker tag "${registry_path}":latest "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to tag ${registry_path}:latest"; exit 1; }
+  docker push "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to push ${registry_path}:v$(date +%Y%d%m-$(git log -1 --pretty=%h))"; exit 1; }
 fi
 
 # cleanup after job
