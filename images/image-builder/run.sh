@@ -3,6 +3,11 @@
 export dockerfile_path="${1}"
 export registry_path="${2}"
 
+# util function
+function error {
+    printf '\E[31m'; echo "$@"; printf '\E[0m'
+}
+
 # runs custom docker data root cleanup binary and debugs remaining resources
 cleanup_dind() {
     if [[ "${DOCKER_IN_DOCKER_ENABLED:-false}" == "true" ]]; then
@@ -30,8 +35,8 @@ if [[ "${DOCKER_IN_DOCKER_ENABLED}" == "true" ]]; then
             echo "Waiting for docker to be ready, sleeping for ${WAIT_N} seconds."
             sleep ${WAIT_N}
         else
-            echo "Reached maximum attempts, not waiting any longer..."
-            break
+            error "Reached maximum attempts, not waiting any longer..." 
+            exit 1
         fi
     done
     printf '=%.0s' {1..80}; echo
@@ -44,16 +49,14 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   echo "Registry is enabled, building and pushing image to ${registry_path}"
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
-  cat "${REGISTRY_USERNAME}"
   # Login into registry
-  # export REGISTRY_PASSWORD=$(aws ecr-public get-login-password --region us-east-1)
-  docker login --username $(cat ${REGISTRY_USERNAME}) --password $( cat ${REGISTRY_PASSWORD}) public.ecr.aws
+  cat "${REGISTRY_PASSWORD}" | docker login --username $(cat ${REGISTRY_USERNAME}) --password-stdin public.ecr.aws || { error "Failed to login to ECR"; exit 1 }
   # Build image
   cd "${dockerfile_path}"
-  docker build -t "${registry_path}" .
+  docker build -t "${registry_path}" . || { error "Failed to build image in ${registry_path}"; exit 1 }
   # Push image to registry
-  docker tag "${registry_path}":latest "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h))
-  docker push "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h))
+  docker tag "${registry_path}":latest "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to tag ${registry_path}:latest"; exit 1 }
+  docker push "${registry_path}":v$(date +%Y%d%m-$(git log -1 --pretty=%h)) || { error "Failed to push ${registry_path}:v$(date +%Y%d%m-$(git log -1 --pretty=%h))"; exit 1 }
 fi
 
 # cleanup after job
