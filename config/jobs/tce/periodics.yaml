@@ -1,0 +1,25 @@
+periodics:
+- name: periodic-build-tce
+  decorate: true
+  interval: 24h
+  extra_refs:
+  - org: vagator
+    repo: test-infra
+    base_ref: main
+  annotations:
+    testgrid-dashboards: tce
+    testgrid-tab-name: periodics
+  labels:
+    preset-dind-enabled: "true"
+  spec:
+    containers:
+    - image: public.ecr.aws/t0q8k6g2/vagator/test-image:v20220403-adf09a6
+      command:
+      - images/test-image/run.sh
+      args:
+      - vmware-tanzu
+      - community-edition
+      - test/docker/run-tce-docker-managed-cluster.sh
+      securityContext:
+        privileged: true
+
