@@ -25,6 +25,11 @@ RUN apt-get update && \
     && update-alternatives --set iptables /usr/sbin/iptables-legacy \
     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
+# Install AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+  unzip -q awscliv2.zip && \
+  ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
+
 # Move Docker's storage location
 RUN echo 'DOCKER_OPTS="${DOCKER_OPTS} --data-root=/docker-graph"' | \
     tee --append /etc/default/docker
