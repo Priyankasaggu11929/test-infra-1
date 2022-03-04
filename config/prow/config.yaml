@@ -169,9 +169,9 @@ presets:
     preset-aws-credentials: "true"
   env:
   - name: AWS_ACCESS_KEY_ID
-    value: /etc/aws-access-key-id
+    value: /etc/aws-access-key-id/aws-access-key-id
   - name: AWS_SECRET_ACCESS_KEY
-    value: /etc/aws-access-key-secret
+    value: /etc/aws-access-key-secret/aws-access-key-secret
   volumes:
   - name: aws-access-key-id
     secret:
