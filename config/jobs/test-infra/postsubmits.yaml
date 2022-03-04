@@ -16,12 +16,36 @@ postsubmits:
       preset-aws-credentials: "true"
     spec:
       containers:
-      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220203-4099263
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
         command:
         - images/image-builder/run.sh
         args:
         - images/image-builder
         - public.ecr.aws/t0q8k6g2/vagator/image-builder
+        securityContext:
+          privileged: true
+  - name: push-test-image
+    cluster: test-jobs
+    decorate: true
+    max_concurrency: 1
+    branches:
+    - ^main$
+    run_if_changed: '^images/test-image*'
+    annotations:
+      testgrid-dashboards: build-images
+      testgrid-tab-name: test-image
+    labels:
+      preset-registry-credentials: "true"
+      preset-dind-enabled: "true"
+      preset-aws-credentials: "true"
+    spec:
+      containers:
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
+        command:
+        - images/image-builder/run.sh
+        args:
+        - images/test-image
+        - public.ecr.aws/t0q8k6g2/vagator/test-image
         securityContext:
           privileged: true
 
