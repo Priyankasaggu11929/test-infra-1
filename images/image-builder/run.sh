@@ -49,8 +49,10 @@ if [[ "${REGISTRY_ENABLED}" == "true" ]]; then
   echo "Registry is enabled, building and pushing image to ${registry_path}"
   export REGISTRY_USERNAME=${REGISTRY_USERNAME:-false}
   export REGISTRY_PASSWORD=${REGISTRY_PASSWORD:-false}
+  export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-false}
+  export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-false}
   # Login into registry
-  docker login --username $(cat ${REGISTRY_USERNAME}) --password $(cat ${REGISTRY_PASSWORD}) public.ecr.aws || { error "Failed to login to ECR"; exit 1; }
+  aws ecr-public get-login | docker login --username $(cat ${REGISTRY_USERNAME}) --password-stdin public.ecr.aws || { error "Failed to login to ECR"; exit 1; }
   # Build image
   cd "${dockerfile_path}"
   docker build -t "${registry_path}" . || { error "Failed to build image in ${registry_path}"; exit 1; }
