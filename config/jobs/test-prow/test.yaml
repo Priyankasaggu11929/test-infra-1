@@ -19,3 +19,11 @@ presubmits:
       containers:
       - image: alpine
         command: ["/bin/printenv"]
+  - name: test-presubmit-01
+    cluster: test-jobs
+    decorate: true
+    always_run: true
+    spec:
+      containers:
+      - image: alpine
+        command: ["/bin/printenv"]        
