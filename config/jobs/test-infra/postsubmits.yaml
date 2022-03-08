@@ -17,8 +17,6 @@ postsubmits:
     spec:
       containers:
       - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
-        command:
-        - images/image-builder/run.sh
         args:
         - images/image-builder
         - public.ecr.aws/t0q8k6g2/vagator/image-builder
