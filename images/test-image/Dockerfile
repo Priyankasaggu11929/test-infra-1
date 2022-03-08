@@ -3,7 +3,9 @@ FROM public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
 RUN apt-get update && \
     apt-get install -y \
     wget \
-    zip 
+    # TCE build expects sudo to be present
+    sudo \
+    zip
 
 # Go standard envs
 ENV GOPATH /go
