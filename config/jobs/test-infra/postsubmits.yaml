@@ -16,7 +16,7 @@ postsubmits:
       preset-aws-credentials: "true"
     spec:
       containers:
-      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220803-dccc121
         command:
         - /usr/local/bin/run.sh
         args:
@@ -40,9 +40,9 @@ postsubmits:
       preset-aws-credentials: "true"
     spec:
       containers:
-      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220403-8ef0c24
+      - image: public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220803-dccc121
         command:
-        - images/image-builder/run.sh
+        - /usr/local/bin/run.sh
         args:
         - images/test-image
         - public.ecr.aws/t0q8k6g2/vagator/test-image
