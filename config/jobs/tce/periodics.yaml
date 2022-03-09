@@ -1,7 +1,7 @@
 periodics:
 - name: periodic-build-tce
   decorate: true
-  cron: 0 * * * *
+  interval: 24h
   extra_refs:
   - org: vagator
     repo: test-infra
