@@ -38,7 +38,7 @@ periodics:
     preset-dind-enabled: "true"
   spec:
     containers:
-    - image: public.ecr.aws/t0q8k6g2/vagator/test-image:v20221003-0c22ff8
+    - image: public.ecr.aws/t0q8k6g2/vagator/test-image:v20221003-6f693ab
       command:
       - python3 /usr/local/bin/boskos.py --help
       - /usr/local/bin/run.sh
@@ -51,4 +51,3 @@ periodics:
           value: "boskos.test-pods.svc.cluster.local"
       securityContext:
         privileged: true
-
