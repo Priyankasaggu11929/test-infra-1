@@ -24,7 +24,7 @@ periodics:
         privileged: true
 - name: periodic-build-tce-with-boskos-test
   decorate: true
-  cron: 0 * * * *
+  cron: 0/30 * * * *
   extra_refs:
   - org: vagator
     repo: test-infra
