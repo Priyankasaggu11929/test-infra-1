@@ -40,7 +40,7 @@ periodics:
     containers:
     - image: public.ecr.aws/t0q8k6g2/vagator/test-image:v20221003-0c22ff8
       command:
-      - python3 /use/local/bin/boskos.py --help
+      - python3 /usr/local/bin/boskos.py --help
       - /usr/local/bin/run.sh
       args:
       - vmware-tanzu
