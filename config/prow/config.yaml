@@ -138,6 +138,24 @@ presets:
     mountPath: /docker-graph
   - name: docker-root
     mountPath: /var/lib/docker
+# volume mounts for kind
+- labels:
+    preset-kind-volume-mounts: "true"
+  volumeMounts:
+    - mountPath: /lib/modules
+      name: modules
+      readOnly: true
+    - mountPath: /sys/fs/cgroup
+      name: cgroup
+  volumes:
+    - name: modules
+      hostPath:
+        path: /lib/modules
+        type: Directory
+    - name: cgroup
+      hostPath:
+        path: /sys/fs/cgroup
+        type: Directory
 # AWS ECR registry creds
 - labels:
     preset-registry-credentials: "true"

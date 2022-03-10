@@ -25,7 +25,7 @@ RUN wget -q "https://storage.googleapis.com/golang/${GO_TARBALL}" && \
     tar xzf "${GO_TARBALL}" -C /usr/local && \
         rm "${GO_TARBALL}"
 
-COPY ["entrypoint.sh", "run.sh", "/usr/local/bin/"]
+COPY ["boskos.py","entrypoint.sh", "run.sh", "/usr/local/bin/"]
 COPY --from=public.ecr.aws/t0q8k6g2/vagator/image-builder:v20220803-dccc121 /usr/local/bin/dind.sh /usr/local/bin/dind.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
