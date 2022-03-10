@@ -5,11 +5,15 @@ RUN apt-get update && \
     wget \
     # TCE build expects sudo to be present
     sudo \
-    zip
+    zip \
+    python3-pip
 
 # Go standard envs
 ENV GOPATH /go
 ENV PATH /usr/local/go/bin:$PATH
+
+#install python requests module
+RUN pip3 install requests
 
 # install kubectl
 ARG K8S_RELEASE=stable
