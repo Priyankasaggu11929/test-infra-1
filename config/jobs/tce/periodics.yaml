@@ -23,6 +23,7 @@ periodics:
       securityContext:
         privileged: true
 - name: periodic-build-tce-with-boskos-test
+  cluster: test-jobs
   decorate: true
   cron: 0/5 * * * *
   extra_refs:
