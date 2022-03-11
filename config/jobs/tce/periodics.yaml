@@ -25,7 +25,7 @@ periodics:
 - name: periodic-build-tce-integrate-boskos-test
   cluster: test-jobs
   decorate: true
-  cron: 0/5 * * * *
+  interval: 24h
   extra_refs:
   - org: vagator
     repo: test-infra
