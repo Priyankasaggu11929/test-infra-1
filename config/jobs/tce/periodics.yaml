@@ -46,7 +46,7 @@ periodics:
       args:
       - Priyankasaggu11929
       - community-edition
-      - scripts/tce-on-aws-deploy.sh
+      - chmod +x scripts/tce-on-aws-deploy.sh && ./scripts/tce-on-aws-deploy.sh
       env:
         - name: BOSKOS_HOST
           value: "boskos.test-pods.svc.cluster.local"
