@@ -22,7 +22,7 @@ periodics:
       - make docker-management-and-cluster-e2e-test
       securityContext:
         privileged: true
-- name: periodic-build-tce-with-boskos-test
+- name: periodic-build-tce-integrate-boskos-test
   cluster: test-jobs
   decorate: true
   cron: 0/5 * * * *
