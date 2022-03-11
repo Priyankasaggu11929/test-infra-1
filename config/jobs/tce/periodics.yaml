@@ -23,8 +23,7 @@ periodics:
       securityContext:
         privileged: true
 - name: periodic-build-tce-with-boskos-test
-  decorate: true
-  interval: 24h
+  cron: 0/10 * * * *
   extra_refs:
   - org: vagator
     repo: test-infra
@@ -40,12 +39,12 @@ periodics:
     containers:
     - image: public.ecr.aws/t0q8k6g2/vagator/test-image:v20221003-6f693ab
       command:
-      - python3 /usr/local/bin/boskos.py --help
       - /usr/local/bin/run.sh
       args:
-      - vmware-tanzu
+      - Priyankasaggu11929
       - community-edition
-      - make docker-management-and-cluster-e2e-test
+        #- make docker-management-and-cluster-e2e-test
+      - python3 hack/boskos.py --help
       env:
         - name: BOSKOS_HOST
           value: "boskos.test-pods.svc.cluster.local"
