@@ -26,7 +26,7 @@ periodics:
 - name: periodic-test-tce-job
   cluster: test-jobs
   decorate: true
-  cron: 0/15 * * * * 
+  cron: 0/5 * * * * 
   extra_refs:
   - org: vagator
     repo: test-infra
@@ -50,5 +50,3 @@ periodics:
       env:
         - name: BOSKOS_HOST
           value: "boskos.test-pods.svc.cluster.local"
-      securityContext:
-        privileged: true
