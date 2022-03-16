@@ -27,7 +27,7 @@ periodics:
   cluster: test-jobs
   decorate: true
     #interval: 24h
-  cron: 0/5 * * * * 
+  cron: 0/15 * * * * 
   extra_refs:
   - org: vagator
     repo: test-infra
@@ -47,7 +47,7 @@ periodics:
       args:
       - Priyankasaggu11929
       - community-edition
-      - chmod +x scripts/tce-on-aws-deploy.sh && ./scripts/tce-on-aws-deploy.sh
+      - echo ${AWS_SSH_KEY_NAME} && chmod +x scripts/tce-on-aws-deploy.sh && ./scripts/tce-on-aws-deploy.sh
       env:
         - name: BOSKOS_HOST
           value: "boskos.test-pods.svc.cluster.local"
@@ -58,7 +58,7 @@ periodics:
   cluster: test-jobs
   decorate: true
   #interval: 24h
-  cron: 0 */3 * * * 
+  cron: 0/5 * * * * 
   extra_refs:
   - org: vagator
     repo: test-infra
@@ -78,6 +78,6 @@ periodics:
       args:
       - yashsingh74
       - community-edition
-      - echo ${AWS_SSH_KEY_NAME} && chmod +x test/docker/run-tce-docker-managed-cluster.sh && ./test/docker/run-tce-docker-managed-cluster.sh
+      - chmod +x test/docker/run-tce-docker-managed-cluster.sh && ./test/docker/run-tce-docker-managed-cluster.sh
       securityContext:
         privileged: true
