@@ -191,9 +191,15 @@ presets:
   - name: AWS_SECRET_ACCESS_KEY
     value: /etc/aws-access-key-secret/aws-access-key-secret
   - name: AWS_B64ENCODED_CREDENTIAL
-    value: /etc/aws-b64encoded-credential/aws-b64encoded-credential
+    valueFrom:
+      secretKeyRef:
+        name: aws-b64encoded-credential
+        key: aws-b64encoded-credential
   - name: AWS_SSH_KEY_NAME
-    value: /etc/aws-ssh-key-name/aws-ssh-key-name
+    valueFrom:
+      secretKeyRef:
+        name: aws-ssh-key-name
+        key: aws-ssh-key-name
   volumes:
   - name: aws-access-key-id
     secret:
@@ -203,25 +209,11 @@ presets:
     secret:
       defaultMode: 0400
       secretName: aws-access-key-secret
-  - name: aws-b64encoded-credential
-    secret:
-      defaultMode: 0400
-      secretName: aws-b64encoded-credential
-  - name: aws-ssh-key-name
-    secret:
-      defaultMode: 0400
-      secretName: aws-ssh-key-name
   volumeMounts:
   - name: aws-access-key-id
     mountPath: /etc/aws-access-key-id
     readOnly: true
   - name: aws-access-key-secret
     mountPath: /etc/aws-access-key-secret
-    readOnly: true
-  - name: aws-b64encoded-credential
-    mountPath: /etc/aws-b64encoded-credential
-    readOnly: true
-  - name: aws-ssh-key-name
-    mountPath: /etc/aws-ssh-key-name
     readOnly: true
 
