@@ -78,6 +78,6 @@ periodics:
       args:
       - yashsingh74
       - community-edition
-      - chmod +x test/docker/run-tce-docker-managed-cluster.sh
+      - chmod +x test/docker/run-tce-docker-managed-cluster.sh && ./test/docker/run-tce-docker-managed-cluster.sh
       securityContext:
         privileged: true
