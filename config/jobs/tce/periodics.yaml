@@ -25,7 +25,8 @@ periodics:
 
 - name: periodics-tce-krte
   cluster: test-jobs
-  cron: 0/15 * * * * 
+  interval: 24h
+  #cron: 0/15 * * * * 
   labels:
     preset-aws-credential: "true"
     preset-dind-enabled: "true"
@@ -127,8 +128,8 @@ periodics:
 - name: periodic-test-tce-job-docker
   cluster: test-jobs
   decorate: true
-  #interval: 24h
-  cron: 0/15 * * * * 
+  interval: 24h
+  #cron: 0/15 * * * * 
   extra_refs:
   - org: vagator
     repo: test-infra
