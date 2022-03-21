@@ -25,7 +25,7 @@ periodics:
 
 - name: periodics-tce-krte
   cluster: test-jobs
-  cron: 0/15 * * * * 
+  cron: 0 */3 * * * 
   labels:
     preset-aws-credential: "true"
     preset-dind-enabled: "true"
